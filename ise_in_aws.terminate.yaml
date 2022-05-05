@@ -192,11 +192,11 @@
 
 
 
-  - name: Delete the Meraki Network
-    cisco.meraki.meraki_network:
-      org_name: "{{ meraki_org_name }}"
-      net_name: "{{ project_name }}"
-      state: absent
+# - name: Delete the Meraki Network
+#   cisco.meraki.meraki_network:
+#     org_name: "{{ meraki_org_name }}"
+#     net_name: "{{ project_name }}"
+#     state: absent
  
 
 ...

@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------
 
 
-- name: AWS VPC with Cisco ISE and Meraki vMX 
+- name: AWS VPC with Cisco ISE 
   hosts: localhost
   gather_facts: yes   # required for `ansible_date_time`
   vars_files:
@@ -22,11 +22,6 @@
 
   - name: Create ISE (no wait)
     ansible.builtin.include_tasks: ise_in_aws.ise.yaml
-
-
-  - name: Create vMX
-    ansible.builtin.include_tasks: ise_in_aws.vmx.yaml
-    tags: meraki,vmx
 
 
   - name: Create PingVM
