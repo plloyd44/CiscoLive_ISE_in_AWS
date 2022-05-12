@@ -1,36 +1,30 @@
 ---
 
-pod_id: pod4
+pod_id: 4
 #set this to your ip used to access ise, or a hostname if DNS configured
 #called in tasks/radius_probes.create.yaml
-inventory_hostname: 18.218.29.225
-ise_hostname: test-hostname.palloyd.xyz
+inventory_hostname: 10.{{ pod_id }}.0.5
+ise_hostname: pod{{ pod_id }}-ise1.zer0k.com
 ise_username: admin
 ise_password: Cis12345!
 AWS_REGION: us-east-2
 ise_verify: false
 
-project_name: ISEinAWS-{{ pod_id }}        # use for tagging VMs and resources
+project_name: ISEinAWS-pod{{ pod_id }}        # use for tagging VMs and resources
 provider: AWS                 # infrastructure provider for environment options
 domain_name: zer0k.org
-
-meraki_org_name: thomas       # your Meraki Organization
-meraki_net_name: "{{ project_name }}"   # Name in Meraki Dashboard
-meraki_vpn_hub:               # Meraki VPN hub to connect vMX into
-  net_name: Lab               #   Network name in Dashboard
-  net_cidr: 192.168.101.0/24  #   VPN Hub Network CIDR
-
 
 #
 # AWS VPC
 #
 aws_region: "{{ lookup('env','AWS_REGION') | default('us-east-2') }}"
 aws_vpc_name: "{{ project_name }}"
-aws_vpc_cidr: 10.192.0.0/16
-aws_public_subnet_cidr:  10.192.169.0/24
-aws_private_subnet_cidr: 10.192.168.0/24
+aws_vpc_cidr: 10.{{ pod_id }}.0.0/16
+aws_public_subnet_cidr:  10.{{ pod_id }}.1.0/24
+aws_private_subnet_cidr: 10.{{ pod_id }}.0.0/24
 aws_public_access_cidr: 0.0.0.0/0
 
+# make sure that your ssh key doesn't exist locally OR in AWS, otherwise this will get skipped.
 ssh_keypair_directory: ~/.ssh
 ssh_keypair_name: "{{ project_name }}"
 
@@ -41,22 +35,10 @@ aws_linux_ami: ami-04b6c97b14c54de18    # us-west-1 Amazon Linux 2 AMI (HVM)
 aws_linux_instance_type: t2.micro
 
 pingvm_name: ping
-pingvm_private_ip: 10.192.168.111
+pingvm_private_ip: 10.{{ pod_id }}.0.111
 pingvm_public_dns_name:  "ping_public.{{ domain_name }}"
 pingvm_private_dns_name: "ping.{{ domain_name }}"
 pingvm_dns_alias: "ping.{{ domain_name }}"
-
-#
-# vMX AMI
-#
-#vmx_aws_ami: ami-09db17cd0ae68ce37      # us-west-1
-#vmx_aws_instance_type: c5.xlarge        # c5.large | c5.xlarge
-#vmx_name: vMX                           # Name in AWS
-#vmx_private_ip: 172.31.1.5              # AWS reserves the first 2 IPs
-#vmx_public_dns_name:  "vmx-1_public.{{ domain_name }}"
-#vmx_private_dns_name: "vmx-1.{{ domain_name }}"
-#vmx_dns_alias: "vmx.{{ domain_name }}"
-
 
 #
 # Cisco ISE VM
@@ -78,20 +60,20 @@ ise_dns_server: 169.254.169.253
 ise_timezone: EST5EDT
 
 ise_nodes:
-  - name: ise
+  - name: pod{{ pod_id }}-ise1
     instance_type: c5.4xlarge
-    public_dns_name:  "ise.{{ domain_name }}"
-    private_dns_name: "ise.{{ domain_name }}"
-    dns_alias: "ise.{{ domain_name }}"
-    private_ip: 10.192.168.44
-    public_ip: 18.218.29.225
+    public_dns_name:  "pod{{ pod_id }}-ise1.{{ domain_name }}"
+    private_dns_name: "pod{{ pod_id }}-ise1.{{ domain_name }}"
+    dns_alias: "pod{{ pod_id }}-ise1.{{ domain_name }}"
+    private_ip: 10.{{ pod_id }}.0.5
+  # public_ip: 18.218.29.225
     role: Primary
-    personas: [ "Standalone" ]  # [ "Standalone", "PAN", "MNT", "PSN", "PXG" ]
+    personas: [ "PAN", "MNT", "PSN" ]  # [ "Standalone", "PAN", "MNT", "PSN", "PXG" ]
   # - name: ise-span
   #   public_dns_name:  "ise-span.{{ domain_name }}"
   #   private_dns_name: "ise-span.{{ domain_name }}"
   #   dns_alias: "ise-span.{{ domain_name }}"
-  #   private_ip: 10.192.168.45
+  #   private_ip: 10.{{ pod_id }}.0.6
   #   role: Secondary
   #   personas: [ "PAN", "MNT", "PSN" ]
 
@@ -99,7 +81,7 @@ radius_secret: Cis12345!
 snmp_secret: Cis12345!
 tacacs_secret: Cis12345!
 
-repository_username: ise
+repository_username: pod{{ pod_id }}-ise
 repository_password: Cis12345!
 
 backup_encryption_key: Cis12345!

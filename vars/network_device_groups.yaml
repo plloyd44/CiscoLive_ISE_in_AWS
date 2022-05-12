@@ -188,14 +188,17 @@ network_device_groups:
 # Device Type#All Device Types#VPN
 #------------------------------------------------------------------------------
 
-- name: Device Type#All Device Types#VPN
-  description: VPN
+- name: Device Type#All Device Types#VPN_Headend
+  description: VPN Headends
   othername: Device Type
 
-- name: Device Type#All Device Types#VPN#ASA
+- name: Device Type#All Device Types#VPN_Headend#ASA
   description: Cisco ASA
   othername: Device Type
 
+- name: Device Type#All Device Types#VPN_Headend#Firepower
+  description: Cisco Firepower VPN
+  othername: Device Type
 
 
 
