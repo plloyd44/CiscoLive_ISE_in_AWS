@@ -55,6 +55,8 @@
     - security_group
 
 
+- name: Gather information about all availability zones
+    amazon.aws.aws_az_info:
 
 
   - name: Create ISE 3.1 Instance in AWS
@@ -69,6 +71,8 @@
       network:
         assign_public_ip: yes
         delete_on_termination: yes
+        # below references ./vars/main.yaml line 84 - private_ip which is statically defined as desired ISE IP
+        # note that "item" references an index in an array as part of a loop, similar to 'array(i)' in C++
         private_ip_address: "{{ item.private_ip}}"
       security_group: "{{ sg_ise.group_id }}"
       volumes:
@@ -78,6 +82,7 @@
             volume_size: "{{ item.volume_size | default( 300 ) }}"
       wait: yes
       tags:
+        # note that "item" references an index in an array as part of a loop, similar to 'array(i)' in C++
         Name: "{{ item.name }}"
         product: "ISE"
         hostname: "{{ item.name }}"
@@ -85,7 +90,8 @@
         start_date: "{{ ansible_date_time.date }}"
         role: "{{ item.role | default( '') }}"
         personas: "{{ item.personas | default( 'standalone') }}"
-      user_data: "hostname={{ item.name | lower }}\nprimarynameserver={{ ise_dns_server }}\ndnsdomain={{ domain_name }}\nntpserver={{ ise_ntp_server }}\ntimezone={{ ise_timezone }}\nusername={{ ise_username }}\npassword={{ ise_password }}"
+      user_data: "hostname={{ item.name | lower }}\nprimarynameserver={{ ise_dns_server }}\ndnsdomain={{ domain_name }}\nntpserver={{ ise_ntp_server }}\ntimezone={{ ise_time
+zone }}\nusername={{ ise_username }}\npassword={{ ise_password }}"
     register: instances
 
   - name: Show ISE Instances
@@ -130,10 +136,12 @@
     loop: "{{ ise_nodes }}"
     ansible.builtin.debug:
       msg: 
+      # note that "item" references an index in an array as part of a loop, similar to 'array(i)' in C++
       - "ping {{ item.private_ip }}"
       - "ssh -i {{ ssh_keypair_directory}}/{{ ssh_keypair_name }}.pem {{ ise_username }}@{{ item.private_ip }}"
       - "ping {{ item.name }}.{{ domain_name }}"
       - "ssh -i {{ ssh_keypair_directory}}/{{ ssh_keypair_name }}.pem {{ ise_username }}@{{ item.name }}.{{ domain_name }}"
+
 
 
 ...
