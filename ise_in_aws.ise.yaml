@@ -17,6 +17,25 @@
       cidr_block:  "{{ aws_vpc_cidr }}"
       region: "{{ aws_region }}"
     register: vpc
+  
+  - name: Show Public Subnet(s)
+    amazon.aws.ec2_vpc_subnet_info:
+      filters:
+        "tag:Name": zer0k_pod{{ pod_id }}_Public_Subnet
+    register: subnet_public
+  
+  - debug:
+      var: subnet_public.subnets[0].cidr_block
+
+  - name: Show Private Subnet(s)
+    amazon.aws.ec2_vpc_subnet_info:
+      filters:
+        "tag:Name": zer0k_pod{{ pod_id }}_Private_Subnet
+    register: subnet_private
+  
+  - debug:
+      var: subnet_private.subnets[0].cidr_block
+
 
   - name: Create SG-ISE Security Group
     amazon.aws.ec2_group:
@@ -54,17 +73,12 @@
     - sg
     - security_group
 
-
-- name: Gather information about all availability zones
-    amazon.aws.aws_az_info:
-
-
   - name: Create ISE 3.1 Instance in AWS
     loop: "{{ ise_nodes }}"
     amazon.aws.ec2_instance:
       state: present
       region: "{{ aws_region }}"
-      vpc_subnet_id: "{{ subnet_private.subnet.id }}"
+      vpc_subnet_id: "{{ subnet_private.subnets[0].id }}"
       image_id: "{{ aws_ise_ami }}"
       instance_type: "{{ item.instance_type | default( aws_ise_instance_type ) }}"
       key_name: "{{ ssh_keypair_name }}"
@@ -90,8 +104,7 @@
         start_date: "{{ ansible_date_time.date }}"
         role: "{{ item.role | default( '') }}"
         personas: "{{ item.personas | default( 'standalone') }}"
-      user_data: "hostname={{ item.name | lower }}\nprimarynameserver={{ ise_dns_server }}\ndnsdomain={{ domain_name }}\nntpserver={{ ise_ntp_server }}\ntimezone={{ ise_time
-zone }}\nusername={{ ise_username }}\npassword={{ ise_password }}"
+      user_data: "hostname={{ item.name | lower }}\nprimarynameserver={{ ise_dns_server }}\ndnsdomain={{ domain_name }}\nntpserver={{ ise_ntp_server }}\ntimezone={{ ise_timezone }}\nusername={{ ise_username }}\npassword={{ ise_password }}"
     register: instances
 
   - name: Show ISE Instances
@@ -107,7 +120,8 @@ zone }}\nusername={{ ise_username }}\npassword={{ ise_password }}"
     loop: "{{ ise_nodes }}"
     community.aws.route53:
       state: present
-      zone: "{{ domain_name }}"
+      #zone: "{{ domain_name }}"
+      hosted_zone_id: "Z03312021O7TSH12BOWDW"
       record: "{{ item.name }}.{{ domain_name }}"
       overwrite: yes
       private_zone: no
@@ -120,7 +134,8 @@ zone }}\nusername={{ ise_username }}\npassword={{ ise_password }}"
     loop: "{{ ise_nodes }}"
     community.aws.route53:
       state: present
-      zone: "{{ domain_name }}"
+      #zone: "{{ domain_name }}"
+      hosted_zone_id: "Z03312021O7TSH12BOWDW"
       record: "{{ item.name }}.{{ domain_name }}"
       overwrite: yes
       private_zone: yes

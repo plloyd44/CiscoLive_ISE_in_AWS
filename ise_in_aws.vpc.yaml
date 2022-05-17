@@ -39,7 +39,7 @@
       state: present
       vpc_id: "{{ vpc.vpc.id }}"
       tags:
-        Name: "igw_{{ project_name }}"
+        Name: "zer0k_igw_{{ project_name }}"
         project: "{{ project_name }}"
         start_date: "{{ ansible_date_time.date }}"
     register: igw
@@ -165,7 +165,7 @@
           cidr_ip: 0.0.0.0/0    # any
           rule_desc: Allow All
       tags:
-        Name: {{ project_name }}
+        Name: "{{ project_name }}"
         project: "{{ project_name }}"
         # start_date: "{{ ansible_date_time.date }}"
     register: sg_ise
