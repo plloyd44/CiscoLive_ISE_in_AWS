@@ -121,7 +121,7 @@
     community.aws.route53:
       state: present
       #zone: "{{ domain_name }}"
-      hosted_zone_id: "Z03312021O7TSH12BOWDW"
+      hosted_zone_id: "{{ ise_route53_host_id }}"
       record: "{{ item.name }}.{{ domain_name }}"
       overwrite: yes
       private_zone: no
@@ -135,7 +135,7 @@
     community.aws.route53:
       state: present
       #zone: "{{ domain_name }}"
-      hosted_zone_id: "Z03312021O7TSH12BOWDW"
+      hosted_zone_id: "{{ ise_route53_host_id }}"
       record: "{{ item.name }}.{{ domain_name }}"
       overwrite: yes
       private_zone: yes

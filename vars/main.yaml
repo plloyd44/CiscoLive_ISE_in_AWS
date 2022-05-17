@@ -9,7 +9,7 @@ ise_username: admin
 ise_password: Cis12345!
 AWS_REGION: us-east-2
 ise_verify: false
-
+ise_route53_host_id: Z03312021O7TSH12BOWDW
 project_name: ISEinAWS-pod{{ pod_id }}        # use for tagging VMs and resources
 provider: AWS                 # infrastructure provider for environment options
 domain_name: zer0k.org
