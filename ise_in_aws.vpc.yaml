@@ -137,40 +137,40 @@
       region: "{{ aws_region }}"
     register: vpc
 
-  - name: Create SG-ISE Security Group
-    amazon.aws.ec2_group:
-      name: zer0k_pod{{ pod_id }}_SG-ISE
-      description: zer0k_pod{{ pod_id }}_SG-ISE
-      # vpc_id: "{{ vpcs.vpcs[0].id }}"
-      vpc_id: "{{ vpc.vpc.id }}"
-      region: "{{ aws_region }}"
-      rules:
-      - proto: -1
-        from_port: 0
-        to_port: 0
-        cidr_ip: 10.{{ pod_id }}.0.0/16
-        rule_desc: Allow all traffic within VPC
-      - proto: tcp
-        from_port: 22
-        to_port: 22
-        cidr_ip: 0.0.0.0/0
-        rule_desc: Allow SSH from anywhere
-      - proto: -1
-        from_port: 0
-        to_port: 0
-        cidr_ip: 192.168.0.0/16
-        rule_desc: Allow all traffic from on-premises
-      rules_egress:
-        - proto: all
-          cidr_ip: 0.0.0.0/0    # any
-          rule_desc: Allow All
-      tags:
-        Name: "{{ project_name }}"
-        project: "{{ project_name }}"
-        # start_date: "{{ ansible_date_time.date }}"
-    register: sg_ise
-    tags:
-    - sg
-    - security_group
+#  - name: Create SG-ISE Security Group
+#    amazon.aws.ec2_group:
+#      name: zer0k_pod{{ pod_id }}_SG-ISE
+#      description: zer0k_pod{{ pod_id }}_SG-ISE
+#      # vpc_id: "{{ vpcs.vpcs[0].id }}"
+#      vpc_id: "{{ vpc.vpc.id }}"
+#      region: "{{ aws_region }}"
+#      rules:
+#      - proto: -1
+#        from_port: 0
+#        to_port: 0
+#        cidr_ip: 10.{{ pod_id }}.0.0/16
+#        rule_desc: Allow all traffic within VPC
+#      - proto: tcp
+#        from_port: 22
+#        to_port: 22
+#        cidr_ip: 0.0.0.0/0
+#        rule_desc: Allow SSH from anywhere
+#      - proto: -1
+#        from_port: 0
+#        to_port: 0
+#        cidr_ip: 172.16.0.0/12
+#        rule_desc: Allow all traffic from on-premises
+#      rules_egress:
+#        - proto: all
+#          cidr_ip: 0.0.0.0/0    # any
+#          rule_desc: Allow All
+#      tags:
+#        Name: "{{ project_name }}"
+#        project: "{{ project_name }}"
+#        # start_date: "{{ ansible_date_time.date }}"
+#    register: sg_ise
+#    tags:
+#    - sg
+#    - security_group
 
 ...
