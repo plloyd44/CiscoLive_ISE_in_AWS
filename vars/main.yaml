@@ -1,6 +1,6 @@
 ---
 
-pod_id: tbd
+pod_id: 4
 #set this to your ip used to access ise, or a hostname if DNS configured
 #called in tasks/radius_probes.create.yaml
 inventory_hostname: 10.{{ pod_id }}.0.5

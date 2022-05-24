@@ -3,8 +3,8 @@
 # Test for ISE Application Server Initialization
 #
 
-# - name: Ping {{ pingvm_private_ip }}
-  - name: Ping {{ pingvm_public_ip }}
+  - name: Ping {{ pingvm_private_ip }}
+# - name: Ping {{ pingvm_public_ip }}
     ansible.builtin.ping:
     register: result
     until: result.failed == false
@@ -13,11 +13,11 @@
 
 # note that the following all references the private IP address
 # if this script sits outside of the region or subnet, use public
-# - name: Wait for {{ item.private_ip }} App Server (GUI)
-  - name: Wait for {{ item.public_ip }} App Server (GUI)
+  - name: Wait for {{ item.private_ip }} App Server (GUI)
+# - name: Wait for {{ item.public_ip }} App Server (GUI)
     ansible.builtin.uri:
-#     url: https://{{ item.private_ip }}/admin/login.jsp
-      url: https://{{ item.public_ip }}/admin/login.jsp
+      url: https://{{ item.private_ip }}/admin/login.jsp
+#     url: https://{{ item.public_ip }}/admin/login.jsp
       method: GET
       follow_redirects: safe
       timeout: 10
@@ -30,12 +30,12 @@
 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-# - name: Show {{ item.private_ip }} Initialized
-  - name: Show {{ item.public_ip }} Initialized
+  - name: Show {{ item.private_ip }} Initialized
+# - name: Show {{ item.public_ip }} Initialized
     when: result.status == 200
     ansible.builtin.debug: 
-#     msg : "✅ ISE Application Server {{ item.private_ip }} Initialized"
-      msg : "✅ ISE Application Server {{ item.public_ip }} Initialized"
+      msg : "✅ ISE Application Server {{ item.private_ip }} Initialized"
+#     msg : "✅ ISE Application Server {{ item.public_ip }} Initialized"
 
 
 ...

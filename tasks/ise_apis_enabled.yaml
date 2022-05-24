@@ -8,8 +8,8 @@
     ansible.builtin.uri:
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     url: "https://{{ item.private_ip }}/admin/API/apiService/update"
-      url: "https://{{ item.public_ip }}/admin/API/apiService/update"
+      url: "https://{{ item.private_ip }}/admin/API/apiService/update"
+#     url: "https://{{ item.public_ip }}/admin/API/apiService/update"
       method: POST
       url_username: "{{ ise_rest_username }}"
       url_password: "{{ ise_rest_password }}"
@@ -30,16 +30,16 @@
     ansible.builtin.debug: 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     msg : "✅ {{ item.private_dns_name }} OpenAPIs Enabled"
-      msg : "✅ {{ item.public_dns_name }} OpenAPIs Enabled" 
+       msg : "✅ {{ item.private_dns_name }} OpenAPIs Enabled"
+#     msg : "✅ {{ item.public_dns_name }} OpenAPIs Enabled" 
 
   - name: Show ISE OpenAPIs Disabled Status
     when: (response.status != 200) and (response.status != 500)
     ansible.builtin.debug: 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     msg : "❌ {{ item.private_dns_name }} OpenAPIs Disabled"
-      msg : "❌ {{ item.ppublic_dns_name }} OpenAPIs Disabled" 
+       msg : "❌ {{ item.private_dns_name }} OpenAPIs Disabled"
+#      msg : "❌ {{ item.ppublic_dns_name }} OpenAPIs Disabled" 
   
 
   - name: Get ISE ERS APIs Status
@@ -47,8 +47,8 @@
     ansible.builtin.uri:
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     url: "https://{{ item.private_ip }}/admin/API/NetworkAccessConfig/ERS"
-      url: "https://{{ item.public_ip }}/admin/API/NetworkAccessConfig/ERS"
+      url: "https://{{ item.private_ip }}/admin/API/NetworkAccessConfig/ERS"
+#     url: "https://{{ item.public_ip }}/admin/API/NetworkAccessConfig/ERS"
       method: GET
       url_username: "{{ ise_rest_username }}"
       url_password: "{{ ise_rest_password }}"
@@ -66,19 +66,19 @@
     ansible.builtin.debug: 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     msg : "✅ {{ item.private_dns_name }} OpenAPIs Enabled"
-      msg : "✅ {{ item.public_dns_name }} OpenAPIs Enabled"
+      msg : "✅ {{ item.private_dns_name }} OpenAPIs Enabled"
+#     msg : "✅ {{ item.public_dns_name }} OpenAPIs Enabled"
 
 # note that the following all references the private IP address              
-# if this script sits outside of the region or subnet, use public
-# - name: Enable {{ item.private_dns_name }} ERS APIs
-  - name: Enable {{ item.public_dns_name }} ERS APIs
+# if this script sits outside of the region or subnet, use public 
+  - name: Enable {{ item.private_dns_name }} ERS APIs
+#  - name: Enable {{ item.public_dns_name }} ERS APIs
     delegate_to: localhost
     ansible.builtin.uri:
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     url: "https://{{ item.private_ip }}/admin/API/NetworkAccessConfig/ERS"
-      url: "https://{{ item.public_ip }}/admin/API/NetworkAccessConfig/ERS"
+      url: "https://{{ item.private_ip }}/admin/API/NetworkAccessConfig/ERS"
+#     url: "https://{{ item.public_ip }}/admin/API/NetworkAccessConfig/ERS"
       method: PUT
       url_username: "{{ ise_rest_username }}"
       url_password: "{{ ise_rest_password }}"
@@ -95,26 +95,26 @@
 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-# - name: Show {{ item.private_dns_name }} ERS Enabled Status
-  - name: Show {{ item.public_dns_name }} ERS Enabled Status
+  - name: Show {{ item.private_dns_name }} ERS Enabled Status
+# - name: Show {{ item.public_dns_name }} ERS Enabled Status
     when: response.status == 200
     ansible.builtin.debug: 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     msg : "✅ {{ item.private_dns_name }} ERS APIs Enabled"
-      msg : "✅ {{ item.public_dns_name }} ERS APIs Enabled"
+      msg : "✅ {{ item.private_dns_name }} ERS APIs Enabled"
+#     msg : "✅ {{ item.public_dns_name }} ERS APIs Enabled"
 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-
-# - name: Show {{ item.private_dns_name }} ERS Disabled Status
-  - name: Show {{ item.public_dns_name }} ERS Disabled Status
+ 
+  - name: Show {{ item.private_dns_name }} ERS Disabled Status
+# - name: Show {{ item.public_dns_name }} ERS Disabled Status
     when: response.status != 200
     ansible.builtin.debug: 
 # note that the following all references the private IP address              
 # if this script sits outside of the region or subnet, use public
-#     msg : "❌ {{ item.private_dns_name }} ERS APIs Disabled"
-      msg : "❌ {{ item.prublic_dns_name }} ERS APIs Disabled"
+      msg : "❌ {{ item.private_dns_name }} ERS APIs Disabled"
+#     msg : "❌ {{ item.prublic_dns_name }} ERS APIs Disabled"
 
 
 ...

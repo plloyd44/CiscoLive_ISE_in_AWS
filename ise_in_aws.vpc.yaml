@@ -47,24 +47,35 @@
   - name: Show igw
     ansible.builtin.debug: var=igw
 
-
-
-
-  - name: Create Public_Subnet
-    amazon.aws.ec2_vpc_subnet:
+  - name: Create a Transit Gateway to connect VPC to other VPCs
+    community.aws.ec2_transit_gateway:
       state: present
-      vpc_id: "{{ vpc.vpc.id }}"
-      cidr: "{{ aws_public_subnet_cidr }}"
-      region: "{{ aws_region }}"
-      map_public: yes       # assigned public IP address by default
+      description: PML Test Transit Gateway
       tags:
-        Name: zer0k_pod{{ pod_id }}_Public_Subnet
+        Name: "zer0k_igw_{{ project_name }}"
         project: "{{ project_name }}"
-        start_date: "{{ ansible_date_time.date }}"
-    register: subnet_public
+        pod: "zer0k_pod{{ pod_id }}"
+    register: transitgateway
 
-  - name: Show subnet_public
-    ansible.builtin.debug: var=subnet_public
+  - name: Show Transit Gateway
+    ansible.builtin.debug: var=transitgateway
+
+
+#  - name: Create Public_Subnet
+#    amazon.aws.ec2_vpc_subnet:
+#      state: present
+#      vpc_id: "{{ vpc.vpc.id }}"
+#      cidr: "{{ aws_public_subnet_cidr }}"
+#      region: "{{ aws_region }}"
+#      map_public: yes       # assigned public IP address by default
+#      tags:
+#        Name: zer0k_pod{{ pod_id }}_Public_Subnet
+#        project: "{{ project_name }}"
+#        start_date: "{{ ansible_date_time.date }}"
+#    register: subnet_public
+#
+#  - name: Show subnet_public
+#    ansible.builtin.debug: var=subnet_public
 
 
 
@@ -87,23 +98,23 @@
 
 
 
-  - name: Create Public Route Table; Add Route from VPC to Internet Gateway
-    community.aws.ec2_vpc_route_table:
-      state: present
-      vpc_id: "{{ vpc.vpc.id }}"
-      subnets:
-        - "{{ subnet_public.subnet.id }}"
-      routes:
-        - dest: 0.0.0.0/0
-          gateway_id: "{{ igw.gateway_id }}"
-      tags:
-        Name: zer0k_pod{{ pod_id }}_RT_Public
-        project: "{{ project_name }}"
-        start_date: "{{ ansible_date_time.date }}"
-    register: rt_public
+#  - name: Create Public Route Table; Add Route from VPC to Internet Gateway
+#    community.aws.ec2_vpc_route_table:
+#      state: present
+#      vpc_id: "{{ vpc.vpc.id }}"
+#      subnets:
+#        - "{{ subnet_public.subnet.id }}"
+#      routes:
+#        - dest: 0.0.0.0/0
+#          gateway_id: "{{ igw.gateway_id }}"
+#      tags:
+#        Name: zer0k_pod{{ pod_id }}_RT_Public
+#        project: "{{ project_name }}"
+#        start_date: "{{ ansible_date_time.date }}"
+#    register: rt_public
 
-  - name: Show rt_public
-    ansible.builtin.debug: var=rt_public
+#  - name: Show rt_public
+#    ansible.builtin.debug: var=rt_public
 
 
 
