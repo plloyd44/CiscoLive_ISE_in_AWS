@@ -34,31 +34,31 @@
 
 
 
-  - name: Create an Internet Gateway to connect VPC to Internet
-    community.aws.ec2_vpc_igw:
-      state: present
-      vpc_id: "{{ vpc.vpc.id }}"
-      tags:
-        Name: "zer0k_igw_{{ project_name }}"
-        project: "{{ project_name }}"
-        start_date: "{{ ansible_date_time.date }}"
-    register: igw
+#  - name: Create an Internet Gateway to connect VPC to Internet
+#    community.aws.ec2_vpc_igw:
+#      state: present
+#      vpc_id: "{{ vpc.vpc.id }}"
+#      tags:
+#        Name: "zer0k_igw_{{ project_name }}"
+#        project: "{{ project_name }}"
+#        start_date: "{{ ansible_date_time.date }}"
+#    register: igw
 
-  - name: Show igw
-    ansible.builtin.debug: var=igw
+#  - name: Show igw
+#    ansible.builtin.debug: var=igw
 
-  - name: Create a Transit Gateway to connect VPC to other VPCs
-    community.aws.ec2_transit_gateway:
-      state: present
-      description: PML Test Transit Gateway
-      tags:
-        Name: "zer0k_igw_{{ project_name }}"
-        project: "{{ project_name }}"
-        pod: "zer0k_pod{{ pod_id }}"
-    register: transitgateway
+#  - name: Create a Transit Gateway to connect VPC to other VPCs
+#    community.aws.ec2_transit_gateway:
+#      state: present
+#      description: PML Test Transit Gateway
+#      tags:
+#        Name: "zer0k_igw_{{ project_name }}"
+#        project: "{{ project_name }}"
+#        pod: "zer0k_pod{{ pod_id }}"
+#    register: transitgateway
 
-  - name: Show Transit Gateway
-    ansible.builtin.debug: var=transitgateway
+#  - name: Show Transit Gateway
+#    ansible.builtin.debug: var=transitgateway
 
 
 #  - name: Create Public_Subnet

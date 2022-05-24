@@ -18,14 +18,23 @@
       region: "{{ aws_region }}"
     register: vpc
   
-  - name: Show Public Subnet(s)
-    amazon.aws.ec2_vpc_subnet_info:
+#  - name: Show Public Subnet(s)
+#    amazon.aws.ec2_vpc_subnet_info:
+#      filters:
+#        "tag:Name": zer0k_pod{{ pod_id }}_Public_Subnet
+#    register: subnet_public
+#  
+#  - debug:
+#      var: subnet_public.subnets[0].cidr_block
+
+  - name: Show Transit Gateway(s)
+    community.aws.ec2_transit_gateway_info:
       filters:
-        "tag:Name": zer0k_pod{{ pod_id }}_Public_Subnet
-    register: subnet_public
+        transit-gateway-id: "{{ transit_gateway_id }}"
+    register: transit_gateway
   
   - debug:
-      var: subnet_public.subnets[0].cidr_block
+      var: transit_gateway
 
   - name: Show Private Subnet(s)
     amazon.aws.ec2_vpc_subnet_info:

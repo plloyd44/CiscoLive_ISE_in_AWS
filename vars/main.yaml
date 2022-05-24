@@ -13,7 +13,7 @@ ise_route53_host_id: Z03312021O7TSH12BOWDW
 project_name: ISEinAWS-pod{{ pod_id }}        # use for tagging VMs and resources
 provider: AWS                 # infrastructure provider for environment options
 domain_name: zer0k.org
-
+transit_gateway_id: tgw-00ecf6a9a26ff37cf    
 #
 # AWS VPC
 #
