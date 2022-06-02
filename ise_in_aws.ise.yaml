@@ -1,6 +1,6 @@
 ---
 
-- name: AWS VPC with Cisco ISE and Meraki vMX
+- name: AWS VPC with Cisco ISE
   hosts: localhost
   gather_facts: yes   # required for `ansible_date_time`
   vars_files:
@@ -93,7 +93,7 @@
       instance_type: "{{ item.instance_type | default( aws_ise_instance_type ) }}"
       key_name: "{{ ssh_keypair_name }}"
       network:
-        assign_public_ip: yes
+        assign_public_ip: no
         delete_on_termination: yes
         # below references ./vars/main.yaml line 84 - private_ip which is statically defined as desired ISE IP
         # note that "item" references an index in an array as part of a loop, similar to 'array(i)' in C++
@@ -126,19 +126,19 @@
   #
   # Advertise the same internal IP for public and private DNS
   #
-  - name: Add public DNS entry for the ISE node(s)
-    loop: "{{ ise_nodes }}"
-    community.aws.route53:
-      state: present
+  #- name: Add public DNS entry for the ISE node(s)
+    #loop: "{{ ise_nodes }}"
+    #community.aws.route53:
+      #state: present
       #zone: "{{ domain_name }}"
-      hosted_zone_id: "{{ ise_route53_host_id }}"
-      record: "{{ item.name }}.{{ domain_name }}"
-      overwrite: yes
-      private_zone: no
-      type: A
-      ttl: 7200
-      value: "{{ item.private_ip }}"
-      wait: no
+      #hosted_zone_id: "{{ ise_route53_host_id }}"
+      #record: "{{ item.name }}.{{ domain_name }}"
+      #overwrite: yes
+      #private_zone: no
+      #type: A
+      #ttl: 7200
+      #value: "{{ item.private_ip }}"
+      #wait: no
 
   - name: Add private DNS entry for the ISE node(s)
     loop: "{{ ise_nodes }}"
