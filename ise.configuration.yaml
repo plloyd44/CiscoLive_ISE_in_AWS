@@ -25,7 +25,7 @@
     loop: "{{ instances.instances }}"
     ansible.builtin.debug: 
       msg:
-      - "{{ item.instance_id }} | {{ item.public_ip_address }}"
+      - "{{ item.instance_id }} | {{ item.private_ip_address }}"
 
 
   #----------------------------------------------------------------------------
