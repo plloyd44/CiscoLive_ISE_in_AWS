@@ -5,8 +5,6 @@ pod_id: tbd
 #called in tasks/radius_probes.create.yaml
 inventory_hostname: 10.{{ pod_id }}.0.5
 ise_hostname: pod{{ pod_id }}-ise1.zer0k.com
-ise_username: admin
-ise_password: CLUS2022party!
 AWS_REGION: us-east-2
 ise_verify: false
 ise_route53_host_id: Z03312021O7TSH12BOWDW
