@@ -1,7 +1,7 @@
 ---
 
 
-- name: AWS VPC with Cisco ISE and Meraki vMX
+- name: AWS VPC with Cisco ISE
   hosts: localhost
   gather_facts: yes   # required for `ansible_date_time`
   vars_files:
