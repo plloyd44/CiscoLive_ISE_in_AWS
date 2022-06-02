@@ -98,24 +98,21 @@
 
 
 
-#  - name: Create Public Route Table; Add Route from VPC to Internet Gateway
-#    community.aws.ec2_vpc_route_table:
-#      state: present
-#      vpc_id: "{{ vpc.vpc.id }}"
-#      subnets:
-#        - "{{ subnet_public.subnet.id }}"
-#      routes:
-#        - dest: 0.0.0.0/0
-#          gateway_id: "{{ igw.gateway_id }}"
-#      tags:
-#        Name: zer0k_pod{{ pod_id }}_RT_Public
-#        project: "{{ project_name }}"
-#        start_date: "{{ ansible_date_time.date }}"
-#    register: rt_public
-
-#  - name: Show rt_public
-#    ansible.builtin.debug: var=rt_public
-
+# Create a Transit Gateway attachment
+#- community.aws.ec2_transit_gateway_vpc_attachment:
+#    state: present
+#    transit_gateway: 'tgw-123456789abcdef01'
+#   name: AnsibleTest-1
+#   subnets:
+#    - subnet-00000000000000000
+#    - subnet-11111111111111111
+#    - subnet-22222222222222222
+#    ipv6_support: False
+#    purge_subnets: True
+#    dns_support: True
+#    appliance_mode_support: True
+#    tags:
+#      TestTag: changed data in Test Tag
 
 
 
