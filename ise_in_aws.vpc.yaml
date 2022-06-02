@@ -124,9 +124,9 @@
       vpc_id: "{{ vpc.vpc.id }}"
       subnets:
         - "{{ subnet_private.subnet.id }}"
-      routes:
-        - dest: 0.0.0.0/0
-          gateway_id: "{{ igw.gateway_id }}"
+      #routes:
+        #- dest: 0.0.0.0/0
+        #  gateway_id: "{{ igw.gateway_id }}"
         # 💡 Update this with other VPN networks after vMX creation! 💡
         # - dest: 192.168.0.0/16
         #   instance_id: "{{ vmx.instance_id }}"          
