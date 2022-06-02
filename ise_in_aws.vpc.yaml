@@ -101,18 +101,16 @@
 # Create a Transit Gateway attachment
 #- community.aws.ec2_transit_gateway_vpc_attachment:
 #    state: present
-#    transit_gateway: 'tgw-123456789abcdef01'
-#   name: AnsibleTest-1
+#    transit_gateway: 'tgw-00ecf6a9a26ff37cf'
+#   name: "pod{{ pod_id }}-transit-attach"
 #   subnets:
-#    - subnet-00000000000000000
-#    - subnet-11111111111111111
-#    - subnet-22222222222222222
+#    - "{{ subnet_private }}"
 #    ipv6_support: False
 #    purge_subnets: True
 #    dns_support: True
 #    appliance_mode_support: True
 #    tags:
-#      TestTag: changed data in Test Tag
+#      Name: "pod{{ pod_id }}-transit-attach"
 
 
 
