@@ -75,7 +75,7 @@ ise_nodes:
   #   role: Secondary
   #   personas: [ "PAN", "MNT", "PSN" ]
 
-radius_secret: Cis12345!
+radius_secret: cisco
 snmp_secret: Cis12345!
 tacacs_secret: Cis12345!
 
