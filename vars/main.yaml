@@ -51,7 +51,6 @@ ise_username: admin
 ise_password: CLEMEA2023Party!
 ise_rest_username: "{{ ise_username }}"
 ise_rest_password: "{{ ise_password }}"
-ise_verify: false
 ise_ntp_server: time.nist.gov
 # use AWS DNS, we of course recommend you forward DNS to 208.67.222.222 and 208.67.220.220.  Ask us why!
 ise_dns_server: 169.254.169.253
