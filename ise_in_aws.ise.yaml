@@ -46,7 +46,7 @@
       var: subnet_private.subnets[0].cidr_block
 
 
-  #- name: Create SG-ISE Security Group
+  - name: Create SG-ISE Security Group
     amazon.aws.ec2_group:
       name: zer0k_pod{{ pod_id }}_SG-ISE
       description: zer0k_pod{{ pod_id }}_SG-ISE
@@ -83,7 +83,7 @@
     - security_group
 
 
-  #- name: Create ISE 3.1 Instance in AWS
+  - name: Create ISE 3.1 Instance in AWS
     loop: "{{ ise_nodes }}"
     amazon.aws.ec2_instance:
       state: present
