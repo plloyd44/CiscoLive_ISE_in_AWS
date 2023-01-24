@@ -41,11 +41,11 @@ endpoints:
 # iPads
 #------------------------------------------------------------------------------
 
-# - name: iPad
-#   mac: 11:22:33:44:55:66
-#   description: iPad
-#   staticGroupAssignment: true
-#   groupId: "{{ ipads_groupId }}"
+- name: iPad
+  mac: 11:22:33:44:55:66
+  description: iPad
+  staticGroupAssignment: true
+  groupId: "{{ ipads_groupId }}"
 
 
 
