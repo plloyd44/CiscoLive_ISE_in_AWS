@@ -48,7 +48,7 @@ aws_ise_instance_type: c5.4xlarge    # ISE Eval/Demo size
 
 ise_base_hostname: ise
 ise_username: admin
-ise_password: CLUS2022Party!
+ise_password: CLEMEA2023Party!
 ise_rest_username: "{{ ise_username }}"
 ise_rest_password: "{{ ise_password }}"
 ise_verify: false
