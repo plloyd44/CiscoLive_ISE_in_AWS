@@ -36,21 +36,21 @@
   - name: Show instances
     ansible.builtin.debug: var=instances
 
-  #- name: Delete all EC2 instances with tag project:"{{ project_name }}"
-  #  community.aws.ec2_instance:
-  #    state: absent
-  #    wait: yes
-  #    filters:
-  #      # instance-state-name: [ "running" ]
-  #      "tag:project": "{{ project_name }}"
+  - name: Delete all EC2 instances with tag project:"{{ project_name }}"
+    community.aws.ec2_instance:
+      state: absent
+      wait: yes
+      filters:
+        instance-state-name: [ "running" ]
+        "tag:project": "{{ project_name }}"
 
 
-  # - name: Terminate
-  #   loop: "{{instances.instances}}"
-  #   amazon.aws.ec2:
-  #     instance_ids: "{{item.instance_id}}"
-  #     state: absent
-  #     # wait: yes
+  - name: Terminate
+    loop: "{{instances.instances}}"
+    amazon.aws.ec2:
+      instance_ids: "{{item.instance_id}}"
+      state: absent
+      wait: yes
 
 
 
@@ -74,15 +74,15 @@
         vpc-id: "{{ vpcs.vpcs[0].id }}"
     register: enis
 
-  # - name: Show enis
-  #   ansible.builtin.debug: var=enis
+  - name: Show enis
+    ansible.builtin.debug: var=enis
 
-  #- name: Delete all dangling ENIs
-  #  when: enis.network_interfaces is defined and enis.network_interfaces | length > 0
-  #  loop: '{{ enis.network_interfaces }}'
-  #  amazon.aws.ec2_eni:
-  #    state: absent
-  #    eni_id: "{{ item.id }}"
+  - name: Delete all dangling ENIs
+    when: enis.network_interfaces is defined and enis.network_interfaces | length > 0
+    loop: '{{ enis.network_interfaces }}'
+    amazon.aws.ec2_eni:
+      state: absent
+      eni_id: "{{ item.id }}"
 
 
 
@@ -96,12 +96,12 @@
   - name: Show subnets
     ansible.builtin.debug: var=subnets
 
-  #- name: Delete Subnets
-  #  loop: '{{ subnets.subnets }}'
-  #  amazon.aws.ec2_vpc_subnet:
-  #    vpc_id: "{{ item.vpc_id }}"
-  #    cidr: "{{ item.cidr_block }}"
-  #    state: absent
+  - name: Delete Subnets
+    loop: '{{ subnets.subnets }}'
+    amazon.aws.ec2_vpc_subnet:
+      vpc_id: "{{ item.vpc_id }}"
+      cidr: "{{ item.cidr_block }}"
+      state: absent
 
 
 
@@ -115,31 +115,31 @@
   - name: Show rts
     ansible.builtin.debug: var=rts
 
-  #- name: Delete Route Table
-  #  loop: '{{ rts.route_tables }}'
-  #  community.aws.ec2_vpc_route_table:
-  #    route_table_id: "{{ item.id }}"
-  #    lookup: id
-  #    state: absent
+  - name: Delete Route Table
+    loop: '{{ rts.route_tables }}'
+    community.aws.ec2_vpc_route_table:
+      route_table_id: "{{ item.id }}"
+      lookup: id
+      state: absent
 
 
 
 
-  # - name: Get All Internet Gateways with tag project:"{{ project_name }}"
-  #   community.aws.ec2_vpc_igw_info:
-  #     convert_tags: yes
-  #     filters:
-  #       "tag:project": "{{ project_name }}"
-  #   register: igws
+  - name: Get All Internet Gateways with tag project:"{{ project_name }}"
+    community.aws.ec2_vpc_igw_info:
+      convert_tags: yes
+      filters:
+        "tag:project": "{{ project_name }}"
+    register: igws
 
-  # - name: Show igws
-  #   ansible.builtin.debug: var=igws
+  - name: Show igws
+    ansible.builtin.debug: var=igws
 
-  #- name: Delete Internet Gateway
-  #  loop: '{{ vpcs.vpcs }}'
-  #  community.aws.ec2_vpc_igw:
-  #    vpc_id: "{{ item.vpc_id }}"
-  #    state: absent
+  - name: Delete Internet Gateway
+    loop: '{{ vpcs.vpcs }}'
+    community.aws.ec2_vpc_igw:
+      vpc_id: "{{ item.vpc_id }}"
+      state: absent
 
 
 
@@ -153,22 +153,22 @@
   - name: Show sgs
     ansible.builtin.debug: var=sgs
 
-  #- name: Delete Security Groups in VPC
-  #  loop: "{{ sgs.security_groups }}"
-  #  when: item.group_name != "default"
-  #  amazon.aws.ec2_group:
-  #    group_id: "{{ item.group_id }}"
-  #    state: absent
+  - name: Delete Security Groups in VPC
+    loop: "{{ sgs.security_groups }}"
+    when: item.group_name != "default"
+    amazon.aws.ec2_group:
+      group_id: "{{ item.group_id }}"
+      state: absent
 
 
 
 
-  #- name: Delete VPCs with tag project:"{{ project_name }}"
-  #  loop: "{{ vpcs.vpcs }}"
-  #  amazon.aws.ec2_vpc_net:
-  #    name: "{{ project_name }}"              # required
-  #    cidr_block: "{{ item.cidr_block }}"     # required
-  #    state: absent
+  - name: Delete VPCs with tag project:"{{ project_name }}"
+    loop: "{{ vpcs.vpcs }}"
+    amazon.aws.ec2_vpc_net:
+      name: "{{ project_name }}"              # required
+      cidr_block: "{{ item.cidr_block }}"     # required
+      state: absent
 
 
 
