@@ -45,12 +45,12 @@
         "tag:project": "{{ project_name }}"
 
 
-  - name: Terminate
-    loop: "{{instances.instances}}"
-    amazon.aws.ec2:
-      instance_ids: "{{item.instance_id}}"
-      state: absent
-      wait: yes
+#  - name: Terminate
+#    loop: "{{instances.instances}}"
+#    amazon.aws.ec2:
+#      instance_ids: "{{item.instance_id}}"
+#      state: absent
+#      wait: yes
 
 
 
