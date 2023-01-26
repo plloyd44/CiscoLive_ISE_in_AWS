@@ -150,8 +150,8 @@
         "tag:project": "{{ project_name }}"
     register: sgs
 
-   - name: Show sgs
-     ansible.builtin.debug: var=sgs
+  - name: Show sgs
+    ansible.builtin.debug: var=sgs
 
   #- name: Delete Security Groups in VPC
   #  loop: "{{ sgs.security_groups }}"
