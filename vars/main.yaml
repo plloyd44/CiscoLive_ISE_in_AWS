@@ -43,12 +43,12 @@ pingvm_dns_alias: "ping.{{ domain_name }}"
 #
 # See https://cs.co/ise-aws for AMIs and Instance Types
 #
-aws_ise_ami: ami-08c545c5ef3cacced  # us-east-2 ISE 3.2 Patch 2
+aws_ise_ami: ami-0262130ee7b27f122  # us-east-2 ISE 3.1
 aws_ise_instance_type: c5.4xlarge    # ISE Eval/Demo size
 
 ise_base_hostname: ise
 ise_username: admin
-ise_password: CLEMEA2023Party!
+ise_password: CLUS2023Party!
 ise_rest_username: "{{ ise_username }}"
 ise_rest_password: "{{ ise_password }}"
 ise_ntp_server: time.nist.gov
