@@ -119,16 +119,16 @@
   # Network Device Groups
   #----------------------------------------------------------------------------
 
-  - name: Create network_device_groups
-    block:
-    - name: Include network_device_groups
-      ansible.builtin.include_vars: vars/network_device_groups.yaml
-    - name: Create Network Device Groups
-      ansible.builtin.include_tasks: tasks/network_device_groups.create.yaml
-    tags: 
-    - create
-    - network_device
-    - network_device_group
+  #- name: Create network_device_groups
+  #  block:
+  #  - name: Include network_device_groups
+  #    ansible.builtin.include_vars: vars/network_device_groups.yaml
+  #  - name: Create Network Device Groups
+  #    ansible.builtin.include_tasks: tasks/network_device_groups.create.yaml
+  #  tags: 
+  #  - create
+  #  - network_device
+  #  - network_device_group
 
 
   - name: Create network_devices
