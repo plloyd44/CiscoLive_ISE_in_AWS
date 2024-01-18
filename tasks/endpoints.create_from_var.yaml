@@ -20,7 +20,7 @@
     ise_verify: "{{ ise_verify }}"
     state: present
     mac: "{{ item.mac }}"
-    # name: "{{ item.name }}"
+    name: "{{ item.name }}"
     description: "{{ item.description }}"
     staticGroupAssignment: "{{ item.staticGroupAssignment | default(true) }}"
     groupId: "{{ item.groupId | default( default_endpoint_group ) }}"
