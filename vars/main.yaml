@@ -43,7 +43,7 @@ pingvm_dns_alias: "ping.{{ domain_name }}"
 #
 # See https://cs.co/ise-aws for AMIs and Instance Types
 #
-aws_ise_ami: ami-0262130ee7b27f122  # us-east-2 ISE 3.1 Patch 1
+aws_ise_ami: ami-07bc77592aa26607e  # us-east-2 ISE 3.3 
 aws_ise_instance_type: c5.4xlarge    # ISE Eval/Demo size
 
 ise_base_hostname: ise
