@@ -105,9 +105,9 @@ network_devices:
   ipv4: 172.18.24.254
   profile_name: Cisco
   network_device_groups:
-  - Device Type#All Device Types#VPN_Headend#ASA
-  - Location#All Locations#AMER
-  - PIN#PIN#Cloud
-  - Enforcement#Enforcement#Closed
+  - Device Type#All Device Types
+  - Location#All Locations
+  #- PIN#PIN#Cloud
+  #- Enforcement#Enforcement#Closed
 
 ...
